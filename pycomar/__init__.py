@@ -1,1 +1,1 @@
-from .foo import *
+from .images import *
