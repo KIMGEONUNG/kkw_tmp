@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pip install git+https://github.com/KIMGEONUNG/pycomar
+pip install --upgrade --no-cache-dir git+https://github.com/KIMGEONUNG/pycomar
