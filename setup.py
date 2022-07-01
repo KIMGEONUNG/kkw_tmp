@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
    name='pycomar',
-   version='0.4',
+   version='0.5',
    description='This is comar\'s python libray for personal purpose',
    author='KimGeonUng',
    author_email='saywooong@gmail.com',
