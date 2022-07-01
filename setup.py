@@ -1,12 +1,12 @@
 from setuptools import setup
 
 setup(
-   name='kkw',
-   version='1.1',
-   description='my module',
+   name='pycomar',
+   version='0.1',
+   description='This is comar\'s python libray for personal purpose',
    author='KimGeonUng',
    author_email='saywooong@gmail.com',
-   packages=['kkw'],  #same as name
+   packages=['pycomar'],  #same as name
    # install_requires=['wheel', 'bar', 'greek'], #external packages as dependencies
 )
 
