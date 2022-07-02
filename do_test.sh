@@ -3,7 +3,8 @@
 set -e
 
 if [ -z $1 ]; then
-    echo No argument
+    echo Fail: No argument
+    echo Hint: Choose a target file name or use \'all\' argument
     exit 1
 fi
 
