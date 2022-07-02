@@ -1,6 +1,4 @@
-# up trivial version
-# git q
-# ./install.sh
+#!/bin/bash
 
 increment_version()
 {
@@ -43,6 +41,11 @@ update_pycomar()
 }
 
 
+echo Increment version
 increment_version 'patch'
+
+echo Push to git repository
 push2git
+
+echo Update pycomar library
 update_pycomar
