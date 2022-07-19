@@ -1,7 +1,8 @@
+__all__ = ['get', 'load']
 import pickle
 
 
-def get(obj, path):
+def save(obj, path):
     with open(path, 'wb') as f:
         pickle.dump(obj, f)
         # f.write(data)
