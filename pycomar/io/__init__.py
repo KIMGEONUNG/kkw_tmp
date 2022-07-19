@@ -8,7 +8,7 @@ def save(obj, path="my_data.pkl"):
         # f.write(data)
 
 
-def load(path):
+def load(path="my_data.pkl"):
     with open(path, 'rb') as f:
         data = pickle.load(f)
         return data
