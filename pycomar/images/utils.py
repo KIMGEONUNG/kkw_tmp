@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+from torchvision.transforms import ToPILImage
 import matplotlib.pyplot as plt
 
 
@@ -40,3 +41,17 @@ def overlay(rgb: np.array, gray: np.array, alpha=0.5):
     jet = gray2jet(gray)
     x = alpha * jet + (1 - alpha) * rgb
     return x
+
+
+def show_img(x):
+    if isinstance(x, np.ndarray):
+        raise NotImplementedError()
+
+    if isinstance(x, torch.Tensor):
+        x = ToPILImage()(x.detach().cpu())
+        x.show()
+
+if __name__ == '__main__':
+    
+    x = torch.randn(3, 100, 100)
+    show_img(x)
