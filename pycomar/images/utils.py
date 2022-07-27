@@ -44,16 +44,24 @@ def overlay(rgb: np.array, gray: np.array, alpha=0.5):
     return x
 
 
+def np2pil(x):
+    return Image.fromarray((x[..., :3] * 255).astype('uint8'))
+
+
+def torch2pil(x):
+    return ToPILImage()(x.detach().cpu())
+
+
 def show_img(x):
     """
     We assume that a range of values is 0 to 1.
     """
     if isinstance(x, np.ndarray):
-        im = Image.fromarray((x[..., :3] * 255).astype('uint8'))
+        im = np2pil(x)
         im.show()
 
     if isinstance(x, torch.Tensor):
-        im = ToPILImage()(x.detach().cpu())
+        im = torch2pil(x)
         im.show()
 
 
