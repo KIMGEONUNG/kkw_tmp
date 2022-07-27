@@ -72,7 +72,7 @@ def show_img(x):
         im.show()
 
 
-def load(path: str):
+def load_img(path: str):
     assert exists(path)
     return ToTensor()(Image.open(path))
 
