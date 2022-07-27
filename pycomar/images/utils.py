@@ -2,6 +2,7 @@ import numpy as np
 import torch
 from torchvision.transforms import ToPILImage
 import matplotlib.pyplot as plt
+from PIL import Image
 
 
 def cv2torch_img(x: np.array):
@@ -44,14 +45,20 @@ def overlay(rgb: np.array, gray: np.array, alpha=0.5):
 
 
 def show_img(x):
+    """
+    We assume that a range of values is 0 to 1.
+    """
     if isinstance(x, np.ndarray):
-        raise NotImplementedError()
+        im = Image.fromarray((x[..., :3] * 255).astype('uint8'))
+        im.show()
 
     if isinstance(x, torch.Tensor):
-        x = ToPILImage()(x.detach().cpu())
-        x.show()
+        im = ToPILImage()(x.detach().cpu())
+        im.show()
+
 
 if __name__ == '__main__':
-    
-    x = torch.randn(3, 100, 100)
+    # x = torch.randn(3, 100, 100)
+    # show_img(x)
+    x = np.random.randn(100, 100, 3)
     show_img(x)
