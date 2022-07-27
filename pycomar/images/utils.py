@@ -1,8 +1,9 @@
 import numpy as np
 import torch
-from torchvision.transforms import ToPILImage
+from torchvision.transforms import ToPILImage, ToTensor
 import matplotlib.pyplot as plt
 from PIL import Image
+from os.path import exists
 
 
 def cv2torch_img(x: np.array):
@@ -45,10 +46,16 @@ def overlay(rgb: np.array, gray: np.array, alpha=0.5):
 
 
 def np2pil(x):
+    """
+    We assume that a range of values is 0 to 1.
+    """
     return Image.fromarray((x[..., :3] * 255).astype('uint8'))
 
 
 def torch2pil(x):
+    """
+    We assume that a range of values is 0 to 1.
+    """
     return ToPILImage()(x.detach().cpu())
 
 
@@ -63,6 +70,11 @@ def show_img(x):
     if isinstance(x, torch.Tensor):
         im = torch2pil(x)
         im.show()
+
+
+def load(path: str):
+    assert exists(path)
+    return ToTensor()(Image.open(path))
 
 
 if __name__ == '__main__':
