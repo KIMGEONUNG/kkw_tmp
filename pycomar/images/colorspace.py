@@ -274,28 +274,4 @@ def rgb_to_xyz(image: torch.Tensor) -> torch.Tensor:
     return out
 
 if __name__ == '__main__':
-    import torch
-    from pycomar.images import  show3plt
-    from pycomar.samples import get_img
-
-    from torchvision.transforms import ToTensor, ToPILImage, Grayscale
-    from PIL import ImageEnhance
-
-    def color_enhacne_blend(x, factor):
-        x_g = Grayscale(3)(x)
-        out = x_g * (1.0 - factor) + x * factor
-        out[out < 0] = 0
-        out[out > 1] = 1
-        return out
-
-    coef = 3
-    img = get_img(1)
-
-    x = ToTensor()(img)
-
-    img_aug_me = color_enhacne_blend(x, coef)
-    x_ = rgb2yuv(x)
-    x_[1:, ...] = x_[1:, ...] * coef
-    x_ = yuv2rgb(x_)
-
-    show3plt([img, img_aug_me, x_], num_edge=3)
+    pass

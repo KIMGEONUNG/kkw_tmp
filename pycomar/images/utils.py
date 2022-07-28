@@ -101,10 +101,14 @@ def show3plt(xs: List[torch.Tensor], num_edge=None):
     num_img = len(xs)
 
     if num_edge is None:
-        num_edge = int(ceil(num_img ** 0.5))
+        num_row = int(ceil(num_img ** 0.5))
+        num_col = num_row
+    else:
+        num_row = ceil(num_img / num_edge)
+        num_col = num_edge
 
     for i in range(len(xs)):
-        plt.subplot(num_edge, num_edge, i + 1)
+        plt.subplot(num_row, num_col, i + 1)
         if isinstance(xs[i], Image.Image):
             plt.imshow(xs[i])
         else:
