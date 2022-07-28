@@ -4,6 +4,7 @@ from torchvision.transforms import ToPILImage, ToTensor
 import matplotlib.pyplot as plt
 from PIL import Image
 from os.path import exists
+from typing import List
 # from warnings import warn
 
 
@@ -89,6 +90,23 @@ def show_img(x):
     if isinstance(x, torch.Tensor):
         im = torch2pil(x)
         im.show()
+
+
+def show3plt(xs: List[torch.Tensor]):
+    import matplotlib.pyplot as plt
+
+    plt.rcParams["figure.figsize"] = (20, 20)
+
+    num_img = len(xs)
+    num_edge = int(num_img ** 0.5)
+
+    for i in len(xs):
+        plt.subplot(num_edge, num_edge, i + 1)
+        plt.imshow(ToPILImage()(xs[i]))
+
+    plt.tight_layout()
+    plt.show()
+    plt.clear()
 
 
 def load_img(path: str):
