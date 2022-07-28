@@ -100,7 +100,7 @@ def show3plt(xs: List[torch.Tensor]):
     num_img = len(xs)
     num_edge = int(num_img ** 0.5)
 
-    for i in len(xs):
+    for i in range(len(xs)):
         plt.subplot(num_edge, num_edge, i + 1)
         plt.imshow(ToPILImage()(xs[i]))
 
