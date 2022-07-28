@@ -74,7 +74,7 @@ def rgb2yuv(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
     b: torch.Tensor = image[..., 2, :, :]
 
     y: torch.Tensor = 0.299 * r + 0.587 * g + 0.114 * b
-    u: torch.Tensor = -0.14713 * r + 0.28886 * g + 0.436 * b
+    u: torch.Tensor = -0.14713 * r + -0.28886 * g + 0.436 * b
     v: torch.Tensor = 0.615 * r + -0.51499 * g + -0.10001 * b
 
     out: torch.Tensor = torch.stack([y, u, v], dim=-3)
@@ -99,7 +99,8 @@ def yuv2rgb(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
     out: torch.Tensor = torch.stack([r, g, b], dim=-3)
 
     if clip:
-        out = torch.clamp(out, min=0.0, max=1.0)
+        pass
+        # out = torch.clamp(out, min=0.0, max=1.0)
 
     return out
 
