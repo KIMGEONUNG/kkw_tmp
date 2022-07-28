@@ -3,7 +3,7 @@ from torch import Tensor
 import torch
 from PIL import Image
 
-__all__ = ['rgb2lab', 'lab2rgb']
+__all__ = ['rgb2lab', 'lab2rgb', 'rgb2yuv', 'yuv2rgb']
 
 
 def linear_rgb_to_rgb(image: torch.Tensor) -> torch.Tensor:
