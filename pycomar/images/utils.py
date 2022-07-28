@@ -9,16 +9,17 @@ from os.path import exists
 
 def cvimg2torchimg(x: np.array):
     assert isinstance(x, np.array)
-    x = torch.from_numpy(x)
+    x = torch.from_numpy(x) / 255.0
     x = x.permute(2, 0, 1)[::-1, ...]
     return x
 
 
 def torchimg2cvimg(x: torch.Tensor):
     assert isinstance(x, torch.Tensor)
-    x: np.array = x.numpy()
+    x: np.array = (x.numpy() * 255).astype('uint8')
     x = x.transpose(1, 2, 0)[..., ::-1]
     return x
+
 
 # def cv2torch_img(x: np.array):
 #     warn('This method \'%s\' is deprecated' % cv2torch_img.__name__,
@@ -63,11 +64,11 @@ def overlay(rgb: np.array, gray: np.array, alpha=0.5):
     return x
 
 
-def np2pil(x):
+def cv2pil(x):
     """
     We assume that a range of values is 0 to 1.
     """
-    return Image.fromarray((x[..., :3] * 255).astype('uint8'))
+    return Image.fromarray((x[..., :3]).astype('uint8'))
 
 
 def torch2pil(x):
@@ -82,7 +83,7 @@ def show_img(x):
     We assume that a range of values is 0 to 1.
     """
     if isinstance(x, np.ndarray):
-        im = np2pil(x)
+        im = cv2pil(x)
         im.show()
 
     if isinstance(x, torch.Tensor):
