@@ -103,7 +103,10 @@ def show3plt(xs: List[torch.Tensor]):
 
     for i in range(len(xs)):
         plt.subplot(num_edge, num_edge, i + 1)
-        plt.imshow(ToPILImage()(xs[i]))
+        if isinstance(xs[i], Image.Image):
+            plt.imshow(xs[i])
+        else:
+            plt.imshow(ToPILImage()(xs[i]))
 
     plt.tight_layout()
     plt.show()
