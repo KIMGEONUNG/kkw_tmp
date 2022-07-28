@@ -92,14 +92,16 @@ def show_img(x):
         im.show()
 
 
-def show3plt(xs: List[torch.Tensor]):
+def show3plt(xs: List[torch.Tensor], num_edge=None):
     import matplotlib.pyplot as plt
     from math import ceil
 
     plt.rcParams["figure.figsize"] = (20, 20)
 
     num_img = len(xs)
-    num_edge = int(ceil(num_img ** 0.5))
+
+    if num_edge is None:
+        num_edge = int(ceil(num_img ** 0.5))
 
     for i in range(len(xs)):
         plt.subplot(num_edge, num_edge, i + 1)
