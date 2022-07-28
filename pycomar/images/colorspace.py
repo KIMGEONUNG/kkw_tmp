@@ -74,13 +74,10 @@ def rgb2yuv(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
     b: torch.Tensor = image[..., 2, :, :]
 
     y: torch.Tensor = 0.299 * r + 0.587 * g + 0.114 * b
-    u: torch.Tensor = -0.14713 * r + -0.28886 * g + 0.436 * b
-    v: torch.Tensor = 0.615 * r + -0.51499 * g + -0.10001 * b
+    u: torch.Tensor = -0.14713 * r - 0.28886 * g + 0.436 * b
+    v: torch.Tensor = 0.615 * r - 0.51499 * g - 0.10001 * b
 
     out: torch.Tensor = torch.stack([y, u, v], dim=-3)
-
-    # if clip:
-    #     out = torch.clamp(out, min=0.0, max=1.0)
 
     return out
 
@@ -96,7 +93,7 @@ def yuv2rgb(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
     v: torch.Tensor = image[..., 2, :, :]
 
     r: torch.Tensor = y + 0 * u + 1.13983 * v
-    g: torch.Tensor = y + -0.39465 * u + -0.58060 * v
+    g: torch.Tensor = y - 0.39465 * u - 0.58060 * v
     b: torch.Tensor = y + 2.03211 * u + 0 * v
 
     out: torch.Tensor = torch.stack([r, g, b], dim=-3)
@@ -275,3 +272,30 @@ def rgb_to_xyz(image: torch.Tensor) -> torch.Tensor:
     out: torch.Tensor = torch.stack([x, y, z], -3)
 
     return out
+
+if __name__ == '__main__':
+    import torch
+    from pycomar.images import  show3plt
+    from pycomar.samples import get_img
+
+    from torchvision.transforms import ToTensor, ToPILImage, Grayscale
+    from PIL import ImageEnhance
+
+    def color_enhacne_blend(x, factor):
+        x_g = Grayscale(3)(x)
+        out = x_g * (1.0 - factor) + x * factor
+        out[out < 0] = 0
+        out[out > 1] = 1
+        return out
+
+    coef = 3
+    img = get_img(1)
+
+    x = ToTensor()(img)
+
+    img_aug_me = color_enhacne_blend(x, coef)
+    x_ = rgb2yuv(x)
+    x_[1:, ...] = x_[1:, ...] * coef
+    x_ = yuv2rgb(x_)
+
+    show3plt([img, img_aug_me, x_], num_edge=3)
