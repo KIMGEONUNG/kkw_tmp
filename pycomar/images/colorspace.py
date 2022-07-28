@@ -65,6 +65,35 @@ def xyz_to_rgb(image: torch.Tensor) -> torch.Tensor:
 
     return out
 
+
+def rgb2yuv(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
+    r"""Convert a RGB image to YUV.
+
+    .. image:: _static/img/rgb_to_lab.png
+
+    The image data is assumed to be in the range of :math:`[0, 1]`. Lab
+    color is computed using the D65 illuminant and Observer 2.
+
+    Args:
+        image: RGB Image to be converted to Lab with shape :math:`(*, 3, H, W)`.
+    """
+    r: torch.Tensor = image[..., 0, :, :]
+    g: torch.Tensor = image[..., 1, :, :]
+    b: torch.Tensor = image[..., 2, :, :]
+
+    y: torch.Tensor = 0.299 * r + 0.587 * g + 0.114 * b
+    u: torch.Tensor = -0.14713 * r + 0.28886 * g + 0.436 * b
+    v: torch.Tensor = 0.615 * r + -0.51499 * g + -0.10001 * b
+
+    out: torch.Tensor = torch.stack([y, u, v], dim=-3)
+
+    return out
+
+
+def yuv2rgb(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
+    raise NotImplementedError
+
+
 def lab2rgb(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
     r"""Convert a Lab image to RGB.
 
