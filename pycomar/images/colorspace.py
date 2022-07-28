@@ -1,7 +1,4 @@
-from torchvision.transforms import ToPILImage, ToTensor
-from torch import Tensor
 import torch
-from PIL import Image
 
 __all__ = ['rgb2lab', 'lab2rgb', 'rgb2yuv', 'yuv2rgb']
 
@@ -69,13 +66,8 @@ def xyz_to_rgb(image: torch.Tensor) -> torch.Tensor:
 def rgb2yuv(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
     r"""Convert a RGB image to YUV.
 
-    .. image:: _static/img/rgb_to_lab.png
-
-    The image data is assumed to be in the range of :math:`[0, 1]`. Lab
-    color is computed using the D65 illuminant and Observer 2.
-
     Args:
-        image: RGB Image to be converted to Lab with shape :math:`(*, 3, H, W)`.
+        image: RGB Image to be converted to YUV with shape :math:`(*, 3, H, W)`.
     """
     r: torch.Tensor = image[..., 0, :, :]
     g: torch.Tensor = image[..., 1, :, :]
@@ -91,7 +83,22 @@ def rgb2yuv(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
 
 
 def yuv2rgb(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
-    raise NotImplementedError
+    r"""Convert a YUV image to RGB.
+
+    Args:
+        image: YUV Image to be converted to RGB with shape :math:`(*, 3, H, W)`.
+    """
+    y: torch.Tensor = image[..., 0, :, :]
+    u: torch.Tensor = image[..., 1, :, :]
+    v: torch.Tensor = image[..., 2, :, :]
+
+    r: torch.Tensor = 0.299 * y + 0.587 * u + 0.114 * v
+    g: torch.Tensor = -0.14713 * y + 0.28886 * u + 0.436 * v
+    b: torch.Tensor = 0.615 * y + -0.51499 * u + -0.10001 * v
+
+    out: torch.Tensor = torch.stack([r, g, b], dim=-3)
+
+    return out
 
 
 def lab2rgb(image: torch.Tensor, clip: bool = True) -> torch.Tensor:
