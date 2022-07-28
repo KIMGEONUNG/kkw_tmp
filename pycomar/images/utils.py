@@ -94,12 +94,12 @@ def show_img(x):
 
 def show3plt(xs: List[torch.Tensor]):
     import matplotlib.pyplot as plt
-    from math import floor
+    from math import ceil
 
     plt.rcParams["figure.figsize"] = (20, 20)
 
     num_img = len(xs)
-    num_edge = int(floor(num_img ** 0.5))
+    num_edge = int(ceil(num_img ** 0.5))
 
     for i in range(len(xs)):
         plt.subplot(num_edge, num_edge, i + 1)
@@ -116,8 +116,4 @@ def load_img(path: str):
 
 
 if __name__ == '__main__':
-    # x = torch.randn(3, 100, 100)
-    # show_img(x)
-    x = np.random.randn(100, 100, 3)
-    show_img(x)
-    torchimg2cvimg(torch.randn(3, 10, 10))
+    pass
