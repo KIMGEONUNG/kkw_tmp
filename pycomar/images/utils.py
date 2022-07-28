@@ -4,20 +4,38 @@ from torchvision.transforms import ToPILImage, ToTensor
 import matplotlib.pyplot as plt
 from PIL import Image
 from os.path import exists
+# from warnings import warn
 
 
-def cv2torch_img(x: np.array):
+def cvimg2torchimg(x: np.array):
     assert isinstance(x, np.array)
     x = torch.from_numpy(x)
-    x = x.permute(2, 0, 1)
+    x = x.permute(2, 0, 1)[::-1, ...]
     return x
 
 
-def torch2cv_img(x: torch.Tensor):
+def torchimg2cvimg(x: torch.Tensor):
     assert isinstance(x, torch.Tensor)
     x: np.array = x.numpy()
-    x = x.transpose(1, 2, 0)
+    x = x.transpose(1, 2, 0)[..., ::-1]
     return x
+
+# def cv2torch_img(x: np.array):
+#     warn('This method \'%s\' is deprecated' % cv2torch_img.__name__,
+#             DeprecationWarning, stacklevel=2)
+#     assert isinstance(x, np.array)
+#     x = torch.from_numpy(x)
+#     x = x.permute(2, 0, 1)
+#     return x
+#
+#
+# def torch2cv_img(x: torch.Tensor):
+#     warn('This method \'%s\' is deprecated' % torch2cv_img.__name__,
+#             DeprecationWarning, stacklevel=2)
+#     assert isinstance(x, torch.Tensor)
+#     x: np.array = x.numpy()
+#     x = x.transpose(1, 2, 0)
+#     return x
 
 
 def gray2jet(x: np.array):
@@ -82,3 +100,4 @@ if __name__ == '__main__':
     # show_img(x)
     x = np.random.randn(100, 100, 3)
     show_img(x)
+    torchimg2cvimg(torch.randn(3,10,10))
