@@ -116,7 +116,8 @@ def show3plt(xs: List[torch.Tensor], num_edge=None):
 
     plt.tight_layout()
     plt.show()
-    plt.clear()
+    plt.cla()
+    plt.clf()
 
 
 def load_img(path: str):
