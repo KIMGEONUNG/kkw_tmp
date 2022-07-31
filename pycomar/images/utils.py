@@ -92,7 +92,7 @@ def show_img(x):
         im.show()
 
 
-def show3plt(xs: List[torch.Tensor], num_edge=None):
+def show3plt(xs: List[torch.Tensor], num_edge=None, titles=None):
     import matplotlib.pyplot as plt
     from math import ceil
 
@@ -109,6 +109,9 @@ def show3plt(xs: List[torch.Tensor], num_edge=None):
 
     for i in range(len(xs)):
         plt.subplot(num_row, num_col, i + 1)
+
+        if titles is not None:
+            plt.title(titles[i])
         if isinstance(xs[i], Image.Image):
             plt.imshow(xs[i])
         else:
