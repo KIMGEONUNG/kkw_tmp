@@ -92,7 +92,11 @@ def show_img(x):
         im.show()
 
 
-def show3plt(xs: List[torch.Tensor], num_edge=None, titles=None, cmap='gray'):
+def show3plt(xs: List[torch.Tensor],
+        num_edge=None,
+        titles=None,
+        cmap='gray',
+        path_out=None):
     import matplotlib.pyplot as plt
     from math import ceil
 
@@ -118,7 +122,11 @@ def show3plt(xs: List[torch.Tensor], num_edge=None, titles=None, cmap='gray'):
             plt.imshow(ToPILImage()(xs[i]), cmap=cmap)
 
     plt.tight_layout()
-    plt.show()
+
+    if path_out is not None:
+        plt.savefig(path_out, dpi=200)
+    else:
+        plt.show()
     plt.cla()
     plt.clf()
 
