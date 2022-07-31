@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from os.path import exists
 from typing import List
+from math import ceil
 # from warnings import warn
 
 
@@ -93,12 +94,10 @@ def show_img(x):
 
 
 def show3plt(xs: List[torch.Tensor],
-        num_edge=None,
-        titles=None,
-        cmap='gray',
-        path_out=None):
-    import matplotlib.pyplot as plt
-    from math import ceil
+             num_edge=None,
+             titles=None,
+             cmap='gray',
+             path_out=None):
 
     plt.rcParams["figure.figsize"] = (20, 20)
 
@@ -127,8 +126,6 @@ def show3plt(xs: List[torch.Tensor],
         plt.savefig(path_out, dpi=300)
     else:
         plt.show()
-    plt.cla()
-    plt.clf()
 
 
 def load_img(path: str):
