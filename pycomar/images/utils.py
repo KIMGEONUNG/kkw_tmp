@@ -124,7 +124,7 @@ def show3plt(xs: List[torch.Tensor],
     plt.tight_layout()
 
     if path_out is not None:
-        plt.savefig(path_out, dpi=200)
+        plt.savefig(path_out, dpi=300)
     else:
         plt.show()
     plt.cla()
