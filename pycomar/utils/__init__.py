@@ -2,7 +2,17 @@ import uuid
 from datetime import datetime
 
 
-__all__ = ['gen_id']
+__all__ = ['gen_id', 'Counter']
+
+
+class Counter(object):
+
+    def __init__(self):
+        self.num = 0
+
+    def next(self):
+        self.num += 1
+        return self.num
 
 
 def gen_id(name='', date=False, delimiter='_', len_hash=7):
