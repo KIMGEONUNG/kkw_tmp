@@ -100,6 +100,7 @@ def show3plt(
     cmap='gray',
     path_out=None,
     figsize=(20, 20),
+    dpi=300,
 ):
 
   plt.rcParams["figure.figsize"] = figsize
@@ -126,7 +127,7 @@ def show3plt(
   plt.tight_layout()
 
   if path_out is not None:
-    plt.savefig(path_out, dpi=300)
+    plt.savefig(path_out, dpi=dpi)
   else:
     plt.show()
 
