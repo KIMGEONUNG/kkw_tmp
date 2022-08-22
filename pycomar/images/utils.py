@@ -93,13 +93,16 @@ def show_img(x):
     im.show()
 
 
-def show3plt(xs: List[torch.Tensor],
-             num_edge=None,
-             titles=None,
-             cmap='gray',
-             path_out=None):
+def show3plt(
+    xs: List[torch.Tensor],
+    num_edge=None,
+    titles=None,
+    cmap='gray',
+    path_out=None,
+    figsize=(20, 20),
+):
 
-  plt.rcParams["figure.figsize"] = (20, 20)
+  plt.rcParams["figure.figsize"] = figsize
 
   num_img = len(xs)
 
