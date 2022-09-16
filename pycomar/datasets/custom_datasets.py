@@ -1,7 +1,7 @@
 import torch.utils.data as data
 from torchvision.datasets.folder import default_loader
 from typing import Tuple, Any, Optional, Callable, List, Dict
-from imagenet_index import IMAGENET_INDEX
+from .imagenet_index import IMAGENET_INDEX
 import os
 
 

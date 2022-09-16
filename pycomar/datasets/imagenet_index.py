@@ -1000,3 +1000,8 @@ IMAGENET_INDEX = {
     "n13133613": 998,
     "n15075141": 999,
 }
+
+
+if __name__ == "__main__":
+  print(IMAGENET_INDEX["n13052670"])
+
