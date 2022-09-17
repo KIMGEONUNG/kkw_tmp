@@ -1,7 +1,10 @@
 import torch
 import math
 
-__all__ = ['rgb2lab', 'lab2rgb', 'rgb2yuv', 'yuv2rgb', 'rgb2hsv', 'hsv2rgb']
+__all__ = [
+    'rgb2lab', 'lab2rgb', 'rgb2yuv', 'yuv2rgb', 'rgb2hsv', 'hsv2rgb',
+    'fuse_luma_chroma'
+]
 
 # The codes are borrowed from Kornia(https://github.com/kornia/kornia)
 
@@ -382,6 +385,14 @@ def rgb_to_xyz(image: torch.Tensor) -> torch.Tensor:
   out: torch.Tensor = torch.stack([x, y, z], -3)
 
   return out
+
+
+def fuse_luma_chroma(img_gray, img_rgb):
+  img_gray *= 100
+  ab = rgb2lab(img_rgb)[..., 1:, :, :]
+  lab = torch.cat([img_gray, ab], dim=0)
+  rgb = lab2rgb(lab)
+  return rgb
 
 
 if __name__ == '__main__':
