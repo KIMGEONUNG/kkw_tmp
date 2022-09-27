@@ -101,6 +101,7 @@ def show3plt(
     path_out=None,
     figsize=(20, 20),
     dpi=300,
+    fontsize=24,
 ):
 
   plt.rcParams["figure.figsize"] = figsize
@@ -118,7 +119,7 @@ def show3plt(
     plt.subplot(num_row, num_col, i + 1)
 
     if titles is not None:
-      plt.title(titles[i])
+      plt.title(titles[i], fontsize=fontsize)
     if isinstance(xs[i], Image.Image):
       plt.imshow(xs[i], cmap=cmap)
     else:
