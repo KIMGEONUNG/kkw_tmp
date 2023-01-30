@@ -14,6 +14,9 @@ def load(path="my_data.pkl"):
     return data
 
 
+def hello():
+    print('hello world')
+
 if __name__ == '__main__':
   import numpy as np
   a = np.random.randn(10)

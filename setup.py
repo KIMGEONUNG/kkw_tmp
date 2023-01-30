@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pycomar',
-    version='0.6.57',
+    version='0.6.58',
     description='This is comar\'s python libray for personal purpose',
     author='KimGeonUng',
     author_email='saywooong@gmail.com',
@@ -11,4 +11,9 @@ setup(
         'pycomar.utils', 'pycomar.datasets'
     ],  # same as name
     # install_requires=['wheel', 'bar', 'greek'], #external packages as dependencies
+    entry_points={
+        'console_scripts': [
+            'pycomar = pycomar.io:hello',
+        ],
+    },
 )
